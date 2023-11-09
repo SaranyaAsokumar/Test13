@@ -1,0 +1,205 @@
+{
+  "0492e0fc-83f0-4bdc-9842-c9f7647ca527": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Microsoft Teams",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1656/1.0.1656.3429/teams/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_teams",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "MicrosoftTeams_1"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "0492e0fc-83f0-4bdc-9842-c9f7647ca527"
+  },
+  "14babd5b-666f-4c68-9367-f20e4671c1d7": {
+    "appActions": [
+      "SearchUser"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Users",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1659/1.0.1659.3460/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Users"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "14babd5b-666f-4c68-9367-f20e4671c1d7"
+  },
+  "331b00b7-6894-4a5a-a35e-02c3e278a76b": {
+    "appActions": [
+      "SendEmail"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1659/1.0.1659.3460/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Outlook"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "331b00b7-6894-4a5a-a35e-02c3e278a76b"
+  },
+  "45e0b27a-48aa-4c4b-9014-81940adc6bc0": {
+    "connectionRef": {
+      "authenticationType": "sqlAuthentication",
+      "displayName": "SQL Server",
+      "gatewayObjectIdHint": "e06f4079-f199-4958-b61b-9e3af63a2f50",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1654/1.0.1654.3414/sql/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sql",
+      "isOnPremiseConnection": true,
+      "sharedConnectionId": "/providers/microsoft.powerapps/apis/shared_sql/connections/1313702a4e52498984f6a6ef2fe4a4cf"
+    },
+    "datasets": {
+      "DESKTOP-6R5VQVU,ArusInternal": {
+        "dataSources": {
+          "Exm.Candidate": {
+            "tableName": "[Exm].[Candidate]"
+          },
+          "Exm.Exam": {
+            "tableName": "[Exm].[Exam]"
+          },
+          "Exm.Exam_question": {
+            "tableName": "[Exm].[Exam_question]"
+          },
+          "Exm.Level_of_quetions": {
+            "tableName": "[Exm].[Level_of_quetions]"
+          },
+          "Exm.Options": {
+            "tableName": "[Exm].[Options]"
+          },
+          "Exm.Question_details": {
+            "tableName": "[Exm].[Question_details]"
+          },
+          "Exm.Questions": {
+            "tableName": "[Exm].[Questions]"
+          },
+          "Exm.Technology": {
+            "tableName": "[Exm].[Technology]"
+          },
+          "Stg.Staging_table": {
+            "tableName": "[Stg].[Staging_table]"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Exm.Candidate",
+      "Exm.Exam",
+      "Exm.Exam_question",
+      "Exm.Level_of_quetions",
+      "Exm.Options",
+      "Exm.Questions",
+      "Exm.Question_details",
+      "Exm.Technology",
+      "Stg.Staging_table"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "endpoints": [
+      "DESKTOP-6R5VQVU,ArusInternal"
+    ],
+    "id": "45e0b27a-48aa-4c4b-9014-81940adc6bc0"
+  },
+  "5c9f1832-0977-4111-908c-c3bbee3718c9": {
+    "appActions": [
+      "SendEmail"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "authenticationType": "shared-application",
+      "displayName": "Gmail",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/laborbol/partial-builds/ase-v3/1.0.1653.3402/gmail/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_gmail",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Gmail"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "5c9f1832-0977-4111-908c-c3bbee3718c9"
+  },
+  "5d2de654-eca2-4aa1-b320-a9cd53b00669": {
+    "appActions": [
+      "Run"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "6a29f473-d6ef-49bf-9de0-0142480040f9": {
+          "value": "shared_sql_1"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "be335ea1-fd65-4285-8fa3-aed34911aa43"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_sql_1": {
+          "value": "6a29f473-d6ef-49bf-9de0-0142480040f9"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "be335ea1-fd65-4285-8fa3-aed34911aa43"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "Uspgetquestionflow"
+    ],
+    "dependencies": {
+      "shared_sql_1": "6a29f473-d6ef-49bf-9de0-0142480040f9"
+    },
+    "dependents": [],
+    "id": "5d2de654-eca2-4aa1-b320-a9cd53b00669"
+  },
+  "6a29f473-d6ef-49bf-9de0-0142480040f9": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Premium",
+      "authenticationType": "sqlAuthentication",
+      "displayName": "SQL Server",
+      "gatewayObjectIdHint": "e06f4079-f199-4958-b61b-9e3af63a2f50",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1654/1.0.1654.3414/sql/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sql",
+      "isOnPremiseConnection": true,
+      "parameterHints": {},
+      "parameterHintsV2": {},
+      "sharedConnectionId": "/providers/microsoft.powerapps/apis/shared_sql/connections/shared-sql-ce9fc893-3c9a-4e21-b818-7127b9488c0c"
+    },
+    "datasets": {},
+    "dataSources": [],
+    "dependencies": {},
+    "dependents": [
+      "5d2de654-eca2-4aa1-b320-a9cd53b00669"
+    ],
+    "endpoints": [
+      "DESKTOP-6R5VQVU,ArusInternal"
+    ],
+    "id": "6a29f473-d6ef-49bf-9de0-0142480040f9"
+  }
+}
