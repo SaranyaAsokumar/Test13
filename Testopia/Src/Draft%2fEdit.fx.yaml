@@ -1,0 +1,7 @@
+"'Draft/Edit' As screen":
+    Fill: =RGBA(247, 247, 247, 1)
+    OnVisible: |-
+        = Set(varPageNumber,1);
+         Set(varquestion,CountRows('Exm.Questions'));
+         Set(vartab,1);
+

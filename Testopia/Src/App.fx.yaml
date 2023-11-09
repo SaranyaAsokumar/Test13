@@ -1,0 +1,74 @@
+App As appinfo:
+    BackEnabled: =false
+    OnStart: |+
+        =Set(_guideStep,0);
+        //ClearCollect(MatchingQuestionsCollection,'Exm.Question_details')//
+        /*ClearCollect(
+            Var2,
+            Filter(
+                'Exm.Question_details',
+                technology_id = LookUp('Exm.Technology', technology = DropdownCanvas1.Selected.Value).technology_id
+                && Level_of_quetions_id = LookUp('Exm.Level_of_quetions', level = DropdownCanvas1_1.Selected.Value).Level_of_quetions_id
+            )
+        )*/
+        /*ClearCollect(
+            Var2,
+             ShowColumns(
+               Filter(
+                    'Exm.Question_details',
+                    technology_id = LookUp('Exm.Technology', technology = DropdownCanvas1.Selected.Value).technology_id
+                    && Level_of_quetions_id = LookUp('Exm.Level_of_quetions', level = DropdownCanvas1_1.Selected.Value).Level_of_quetions_id
+                ),
+                "question_details_id",
+                "question_id",  // Include all the columns you need
+                "Level_of_quetions_id", // Include other columns you need
+                "technology_id",
+                "options_id",
+                "answer_id",
+                "unit" // Include other columns you need
+            )
+        );*/
+        /*ClearCollect(
+            Var2,Distinct(Var2,
+             
+               Filter(
+                    'Exm.Question_details',
+                    technology_id = LookUp('Exm.Technology', technology = DropdownCanvas1.Selected.Value).technology_id
+                    && Level_of_quetions_id = LookUp('Exm.Level_of_quetions', level = DropdownCanvas1_1.Selected.Value).Level_of_quetions_id
+                ) // Include other columns you need
+            )
+        )*/
+        //Set(ReviewStatus,true);//
+        //Set(ReviewMode,false);//
+        //ClearCollect(ReviewItems, []);//
+        
+        //Collect(SelectedItem, Gallery5.AllItems);//
+        //Collect(RemovedText, { RemovedCol: Button6.Text });//
+        //ClearCollect(RemovedText, { RemovedCol1: Button6.Text, RemovedCol2: Button6.Text, RemovedCol3: Button6.Text })//
+         /*Collect(
+            RemovedText1,
+            {
+                RemovedCol1: Button6.Text,
+                RemovedCol2: Button6.Text,
+        
+                RemovedCol3: Button6.Text
+            }
+        )*/
+        Collect(RemovedText, { RemovedCol: Button6.Text,RemovedId: Label25.Text })
+          
+        
+         
+        
+        
+        
+        
+    StartScreen: ='Start Screen'
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+

@@ -1,0 +1,217 @@
+ReviewQuestionScreen As screen:
+    Fill: =RGBA(247, 247, 247, 1)
+    OnVisible: |-
+        =//ClearCollect(SelectedOptions, Filter(Var2, question_id = Value(SelectedQuestionID)))//
+        ClearCollect(OptionsCollection, Filter('Exm.Options', options_id in VarOpt).options_id);
+
+    Label21 As label:
+        BorderThickness: =1
+        Fill: =RGBA(255, 255, 255, 1)
+        Font: =Font.Arial
+        Height: =110
+        Size: =15
+        Text: |+
+            =SelectedButtonText
+            
+        Width: =920
+        X: =114
+        Y: =230
+        ZIndex: =1
+
+    Image3 As image:
+        Height: =23
+        Image: =Question
+        Width: =96
+        X: =114
+        Y: =153
+        ZIndex: =4
+
+    Image5 As image:
+        Height: =29
+        Image: ='Line 11'
+        Width: =1813
+        X: =40
+        Y: =392
+        ZIndex: =5
+
+    Image10 As image:
+        Height: =23
+        Image: =Options
+        Width: =78
+        X: =114
+        Y: =456
+        ZIndex: =6
+
+    Radio3 As radio:
+        Default: |+
+            =/*If(
+                !IsBlank(LookUp(VarOpt, options_id = options_id)),
+                Radio3.Selected = true,
+                Radio3.Selected = false
+            )*/
+            /*If(
+                !IsBlank(LookUp(VarOpt, options_id = options_id)),
+                true,
+                false
+            )*/
+            Radio3DefaultValue 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        Height: =206
+        Items: =Filter('Exm.Options', options_id in VarOpt.options_id)
+        OnSelect: |
+            =//Set(Radio3DefaultValue, LookUp('Exm.Options', options = Radio3.Selected.options).options)//
+            //Set(Radio3DefaultValue, LookUp('Exm.Options', options_id in VarOpt.options_id).options)//
+        Width: =410
+        X: =114
+        Y: =573
+        ZIndex: =7
+
+    Image9 As image:
+        Height: =215
+        Image: ='Line 15'
+        Width: =152
+        X: =644
+        Y: =479
+        ZIndex: =8
+
+    Image11 As image:
+        Height: =97
+        Image: ='Mark given by the Contributor'
+        Width: =277
+        X: =775
+        Y: =425
+        ZIndex: =9
+
+    Image12 As image:
+        Image: ='Group 431'
+        Width: =277
+        X: =775
+        Y: =534
+        ZIndex: =10
+
+    Image9_1 As image:
+        Height: =215
+        Image: ='Line 15'
+        Width: =152
+        X: =1052
+        Y: =479
+        ZIndex: =11
+
+    Image13 As image:
+        Image: =Technology
+        X: =1227
+        Y: =427
+        ZIndex: =12
+
+    Image14 As image:
+        Height: =72
+        Image: ='Vector 8'
+        Width: =72
+        X: =1339
+        Y: =473
+        ZIndex: =13
+
+    Image15 As image:
+        Height: =50
+        Image: ='Vector 10'
+        Width: =17
+        X: =1425
+        Y: =482
+        ZIndex: =14
+
+    Image16 As image:
+        Image: ='Vector 9'
+        Width: =45.5
+        X: =1395
+        Y: =456
+        ZIndex: =15
+
+    Image18 As image:
+        Height: =23
+        Image: =Category
+        Width: =90
+        X: =1480
+        Y: =479
+        ZIndex: =16
+
+    Image19 As image:
+        Image: ='Line 11'
+        X: =40
+        Y: =652
+        ZIndex: =17
+
+    Image5_1 As image:
+        Height: =29
+        Image: ='Line 11'
+        Width: =1813
+        X: =28
+        Y: =706
+        ZIndex: =18
+
+    Image20 As image:
+        Height: =23
+        Image: ='Reason for the Question & answer'
+        Width: =340
+        X: =96
+        Y: =756
+        ZIndex: =19
+
+    Label21_1 As label:
+        BorderThickness: =1
+        Fill: =RGBA(255, 255, 255, 1)
+        Font: =Font.Arial
+        Height: =110
+        Size: =15
+        Text: |+
+            =//SelectedButtonText//
+            
+        Width: =920
+        X: =114
+        Y: =822
+        ZIndex: =20
+
+    Image21 As image:
+        Image: =User.
+        X: =1516
+        Y: =100
+        ZIndex: =21
+
+    Button2 As button:
+        Font: =Font.Arial
+        Height: =55
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =17
+        Text: ="Approve"
+        Width: =199
+        X: =569
+        Y: =1013
+        ZIndex: =21
+
+    Button2_1 As button:
+        BorderThickness: =3
+        Color: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(247, 247, 247, 1)
+        Font: =Font.Arial
+        Height: =55
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =17
+        Text: ="Reject"
+        Width: =199
+        X: =810
+        Y: =1013
+        ZIndex: =22
+

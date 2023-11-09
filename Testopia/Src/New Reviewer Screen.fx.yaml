@@ -1,0 +1,65 @@
+"'New Reviewer Screen' As screen":
+    Fill: =RGBA(242, 246, 247, 1)
+    OnVisible: |+
+        =//ClearCollect(MatchingQuestionsCollection,'Exm.Question_details')//
+        
+        /*ClearCollect(
+            MatchingQuestionsCollection,
+            Filter(
+                'Exm.Question_details',
+                technology_id = LookUp('Exm.Technology', technology = DropdownCanvas1.Selected.Value).technology_id
+                    && Level_of_quetions_id = LookUp('Exm.Level_of_quetions', level = DropdownCanvas1_1.Selected.Value).Level_of_quetions_id
+            )
+        );*/
+        /*ClearCollect(
+            DelegatedFilter,
+            Filter(
+                'Exm.Question_details',
+                technology_id = LookUp('Exm.Technology', technology = DropdownCanvas1.Selected.Value).technology_id,
+                Level_of_quetions_id = LookUp('Exm.Level_of_quetions', level = DropdownCanvas1_1.Selected.Value).Level_of_quetions_id
+            )
+        )*/
+        /*ClearCollect(
+            MatchingQuestionsCollection,
+            LookUp(
+                'Exm.Question_details',
+                technology_id = LookUp('Exm.Technology', technology = DropdownCanvas1.Selected.Value).technology_id
+                    && Level_of_quetions_id = LookUp('Exm.Level_of_quetions', level = DropdownCanvas1_1.Selected.Value).Level_of_quetions_id
+            )
+        );*/
+        
+        /*ClearCollect(
+            MatchingQuestionsCollection,
+            Distinct(
+                Filter(
+                    'Exm.Question_details',
+                    technology_id = LookUp('Exm.Technology', technology = DropdownCanvas1.Selected.Value).technology_id
+                        && Level_of_quetions_id = LookUp('Exm.Level_of_quetions', level = DropdownCanvas1_1.Selected.Value).Level_of_quetions_id
+                ),
+                question_id
+            )
+        )*/
+        ClearCollect(
+            Var1,
+            Filter(
+                'Exm.Question_details',
+                technology_id = LookUp('Exm.Technology', technology = DropdownCanvas1_4.Selected.Value).technology_id
+                && Level_of_quetions_id = LookUp('Exm.Level_of_quetions', level = DropdownCanvas1_5.Selected.Value).Level_of_quetions_id
+            )
+        );
+        ClearCollect(
+            Var3,
+             ShowColumns(
+               Filter(
+                    'Exm.Question_details',
+                    technology_id = LookUp('Exm.Technology', technology = DropdownCanvas1_4.Selected.Value).technology_id
+                    && Level_of_quetions_id = LookUp('Exm.Level_of_quetions', level = DropdownCanvas1_5.Selected.Value).Level_of_quetions_id
+                ),
+                "question_id",  // Include all the columns you need
+                "Level_of_quetions_id", // Include other columns you need
+                "technology_id" // Include other columns you need
+            )
+        );
+        
+        
+

@@ -1,0 +1,231 @@
+"'Question Selection' As screen":
+    Fill: =RGBA(245, 248, 255, 1)
+    Width: =
+
+    TechnologyConfirmationPopUpMenuContainerQuestionSelectionScreen As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(231, 239, 255, 1)
+        Height: =552
+        PaddingRight: =0.00
+        PaddingTop: =0.00
+        RadiusBottomLeft: =30
+        RadiusBottomRight: =30
+        RadiusTopLeft: =30
+        RadiusTopRight: =30
+        Visible: =TechnologyConfirmationPopUpMenuContainerHide
+        Width: =967
+        X: =460
+        Y: =176
+        ZIndex: =11
+
+        Label4 As label:
+            Align: =Align.Center
+            Color: =RGBA(70, 70, 70, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =67
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            Size: =28
+            Text: ="Confirm your Technology"
+            Width: =967
+            X: =0.00
+            Y: =54
+            ZIndex: =2
+
+        BackButtonQuestionSelectionScreen As button:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(70, 70, 70, 1)
+            DisabledBorderColor: =RGBA(219, 219, 219, 1)
+            DisabledColor: =RGBA(70, 70, 70, 1)
+            DisabledFill: =RGBA(219, 219, 219, 1)
+            Fill: =RGBA(219, 219, 219, 1)
+            Font: =Font.Arial
+            Height: =56
+            HoverBorderColor: =RGBA(219, 219, 219, 1)
+            HoverColor: =RGBA(70, 70, 70, 1)
+            HoverFill: =RGBA(219, 219, 219, 1)
+            OnSelect: |-
+                =Set(TechnologyConfirmationPopUpMenuContainerHide,false);
+                Set(TechnologySelectionContainerQuestionSelectionScreenHide,true);
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            PressedBorderColor: =RGBA(219, 219, 219, 1)
+            PressedColor: =RGBA(70, 70, 70, 1)
+            PressedFill: =RGBA(219, 219, 219, 1)
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =18
+            Text: ="< Back "
+            Width: =176
+            X: =258
+            Y: =435
+            ZIndex: =3
+
+        ConfirmButtonQuestionSelectionScreen As button:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(56, 96, 178, 1)
+            DisabledColor: =RGBA(255, 255, 255, 1)
+            DisabledFill: =RGBA(56, 96, 178, 1)
+            Font: =Font.Arial
+            Height: =56
+            HoverBorderColor: =RGBA(56, 96, 178, 1)
+            HoverFill: =RGBA(56, 96, 178, 1)
+            OnSelect: |-
+                =//ClearCollect(TechnologyCollection,"TechnologyID" : );
+                Navigate('Level Of Technology Screen')
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            PressedBorderColor: =RGBA(56, 96, 178, 1)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(56, 96, 178, 1)
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =18
+            Text: ="Confirm >"
+            Width: =176
+            X: =532
+            Y: =435
+            ZIndex: =4
+
+        Container1 As groupContainer.manualLayoutContainer:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =210
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =450
+            X: =258
+            Y: =150
+            ZIndex: =5
+
+            TechnologyListBoxQuestionSelection As listbox:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderThickness: =0
+                Fill: =RGBA(0, 0, 0, 0)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =170
+                HoverFill: =RGBA(0, 0, 0, 0)
+                Items: =C_Technology
+                PaddingRight: =0.00
+                PaddingTop: =0.00
+                PressedColor: =RGBA(0, 0, 0, 1)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                SelectionColor: =RGBA(0, 0, 0, 1)
+                SelectionFill: =RGBA(0, 0, 0, 0)
+                Size: =18.27
+                Width: =404
+                X: =28
+                Y: =24
+                ZIndex: =1
+
+    TechnologySelectionContainerQuestionSelectionScreen As groupContainer.manualLayoutContainer:
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderStyle: =BorderStyle.None
+        Height: =932
+        PaddingRight: =0.00
+        PaddingTop: =0.00
+        Visible: =TechnologySelectionContainerQuestionSelectionScreenHide
+        Width: =1281.87
+        X: =320
+        Y: =40
+        ZIndex: =12
+
+        "TechnologyGalleryQuestionSelectionScreen As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderStyle: =BorderStyle.None
+            DelayItemLoading: =true
+            Height: =437
+            Items: ='Exm.Technology'
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =133
+            Width: =1259.87
+            WrapCount: =4
+            X: =11
+            Y: =314
+            ZIndex: =1
+
+            TechnologyCheckboxQuestionSelectionScreen As checkbox:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                CheckmarkFill: =RGBA(56, 96, 178, 1)
+                Color: =RGBA(75, 75, 75, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(75, 75, 75, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =61
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverColor: =RGBA(75, 75, 75, 1)
+                HoverFill: =RGBA(0, 0, 0, 0)
+                OnCheck: =Collect(C_Technology,ThisItem)
+                OnSelect: =Select(Parent)
+                OnUncheck: =Remove(C_Technology,ThisItem)
+                PaddingRight: =0.00
+                PaddingTop: =0.00
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                PressedColor: =RGBA(75, 75, 75, 1)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                Size: =24
+                Text: =ThisItem.technology
+                Width: =314.9675
+                ZIndex: =4
+
+        Label3 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(51, 51, 51, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =72
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            Size: =48
+            Text: ="Select Your Technology"
+            Width: =1281.87
+            X: =0.00
+            Y: =97
+            ZIndex: =2
+
+        NextButtonQuestionSelectionScreen As button:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(56, 96, 178, 1)
+            DisabledColor: =RGBA(255, 255, 255, 1)
+            DisabledFill: =RGBA(56, 96, 178, 1)
+            Font: =Font.Arial
+            Height: =56
+            HoverBorderColor: =RGBA(56, 96, 178, 1)
+            HoverFill: =RGBA(56, 96, 178, 1)
+            OnSelect: |-
+                =Set(TechnologyConfirmationPopUpMenuContainerHide,true);
+                Set(TechnologySelectionContainerQuestionSelectionScreenHide,false);
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            PressedBorderColor: =RGBA(56, 96, 178, 1)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(56, 96, 178, 1)
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =18
+            Text: ="Next >"
+            Visible: =TechnologySelectionContainerQuestionSelectionScreenHide
+            Width: =176
+            X: =553
+            Y: =834
+            ZIndex: =3
+

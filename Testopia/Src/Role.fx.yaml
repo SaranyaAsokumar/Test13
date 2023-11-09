@@ -1,0 +1,154 @@
+Role As screen:
+    Fill: =RGBA(247, 247, 247, 1)
+
+    Label10 As label:
+        Color: =RGBA(51, 51, 51, 1)
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Bold
+        Height: =180
+        Size: =55
+        Text: ="Select Your Role"
+        Width: =377
+        X: =162
+        Y: =409
+        ZIndex: =1
+
+    RoleContainer As groupContainer.manualLayoutContainer:
+        Height: =552
+        Width: =860
+        X: =846
+        Y: =249
+        ZIndex: =2
+
+        ContributorBtn As button:
+            Color: =RGBA(51, 51, 51, 1)
+            Fill: =RGBA(222, 232, 255, 1)
+            Height: =88
+            HoverFill: |
+                =RGBA(56, 96, 178, 1)
+            OnSelect: |-
+                =Clear(ColOption);
+                Set(
+                    TotalLines,
+                    0
+                );
+                Set(
+                    TotalLines,
+                    TotalLines + 1
+                );
+                Collect(
+                    ColOption,
+                    {LineNumber: TotalLines}
+                );
+                Navigate(Contributor);
+            PressedFill: =RGBA(56, 96, 178, 1)
+            Text: ="Contributor"
+            Width: =319
+            X: =92
+            Y: =65
+            ZIndex: =1
+
+        ContributorCircle As circle:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =2
+            Fill: =RGBA(222, 232, 255, 0.5)
+            Height: =23
+            HoverFill: =
+            Width: =23
+            X: =145
+            Y: =97
+            ZIndex: =2
+
+        ReviewerBtn As button:
+            Color: =RGBA(51, 51, 51, 1)
+            Fill: =RGBA(222, 232, 255, 1)
+            Height: =88
+            HoverFill: |
+                =RGBA(56, 96, 178, 1)
+            PressedFill: =RGBA(56, 96, 178, 1)
+            Text: ="Reviewer"
+            Width: =319
+            X: =92
+            Y: =211
+            ZIndex: =3
+
+        ReviewerCircle As circle:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =2
+            Fill: =RGBA(222, 232, 255, 0.5)
+            Height: =23
+            HoverFill: =
+            Width: =23
+            X: =145
+            Y: =243
+            ZIndex: =4
+
+        TestTakerBtn As button:
+            Color: =RGBA(51, 51, 51, 1)
+            Fill: =RGBA(222, 232, 255, 1)
+            Height: =88
+            HoverFill: |
+                =RGBA(56, 96, 178, 1)
+            PressedFill: =RGBA(56, 96, 178, 1)
+            Text: ="Test Taker"
+            Width: =319
+            X: =92
+            Y: =357
+            ZIndex: =5
+
+        TestTakerCircle As circle:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =2
+            Fill: =RGBA(222, 232, 255, 0.5)
+            Height: =23
+            HoverFill: =
+            Width: =23
+            X: =145
+            Y: =389
+            ZIndex: =6
+
+        ContributorCheckBox As checkbox:
+            BorderStyle: =BorderStyle.None
+            CheckboxBackgroundFill: =If(ContributorCheckBox.Value,RGBA(56, 96, 178, 1),RGBA(0, 0, 0, 0))
+            CheckboxSize: =25
+            CheckmarkFill: =RGBA(255, 255, 255, 1)
+            Color: =If(ContributorCheckBox.Value,RGBA(240, 98, 15, 60))
+            Font: =Font.Arial
+            Height: =37
+            HoverBorderColor: =
+            HoverColor: =If(ContributorCheckBox.Value,RGBA(240, 98, 15, 60))
+            HoverFill: =
+            PressedBorderColor: =
+            PressedColor: =
+            PressedFill: =
+            Size: =10
+            Text: =If(ContributorCheckBox.Value,"Request sent !","Request for access")
+            Width: =218
+            X: =502
+            Y: =90
+            ZIndex: =9
+
+        TestTakerCheckBox As checkbox:
+            BorderStyle: =BorderStyle.None
+            CheckboxBackgroundFill: =If(TestTakerCheckBox.Value,RGBA(56, 96, 178, 1),RGBA(0, 0, 0, 0))
+            CheckboxSize: =25
+            CheckmarkFill: =RGBA(255, 255, 255, 1)
+            Color: =If(TestTakerCheckBox.Value,RGBA(240, 98, 15, 60))
+            Font: =Font.Arial
+            Height: =37
+            HoverColor: =If(TestTakerCheckBox.Value,RGBA(240, 98, 15, 60))
+            Size: =10
+            Text: =If(TestTakerCheckBox.Value,"Request sent !","Request for access")
+            Width: =218
+            X: =502
+            Y: =382
+            ZIndex: =10
+
+    Container6 As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(235, 235, 235, 1)
+        Height: =443
+        Width: =5
+        X: =798
+        Y: =281
+        ZIndex: =3
+

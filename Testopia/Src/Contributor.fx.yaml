@@ -1,0 +1,625 @@
+"Contributor As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+    Fill: =RGBA(247, 247, 247, 1)
+
+    Canvas1 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =Parent.Height
+        Width: =Parent.Width
+        Y: =
+        ZIndex: =1
+
+        AddQuestionDataCard As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: |-
+                =//CheckboxGal.Height
+                Switch(
+                    OptionDD.SelectedText.Value,
+                    "☑️ Checkbox",
+                    CheckboxGal.Height,
+                    "🔘 Multiple choice",
+                    MultiplechoiceGal.Height,
+                    "— Paragraph",
+                    TextInput2.Text
+                )
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            YourQuestionLbl_1 As label:
+                Color: =RGBA(51, 51, 51, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =53
+                Size: =14
+                Text: ="Your Question"
+                X: =40
+                Y: =40
+                ZIndex: =1
+
+            YourQuestionTxt_1 As text:
+                BorderColor: =RGBA(214, 221, 224, 1)
+                Default: =""
+                Font: =Font.Arial
+                Height: =136
+                HintText: ="Enter your question"
+                HoverBorderColor: =RGBA(139, 154, 159, 1)
+                HoverFill: =RGBA(186, 202, 226, 0.1)
+                Mode: =TextMode.MultiLine
+                Size: =15
+                Width: =993
+                X: =40
+                Y: =93
+                ZIndex: =2
+
+            OptionsLbl_1 As label:
+                Color: =RGBA(51, 51, 51, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =68
+                Size: =14
+                Text: ="Options"
+                X: =40
+                Y: =276
+                ZIndex: =3
+
+            OptionDD As dropdown:
+                BorderColor: =RGBA(135, 135, 136, 1)
+                ChevronBackground: =RGBA(0, 0, 0, 0)
+                ChevronFill: =RGBA(0, 0, 0, 1)
+                ChevronHoverBackground: =//ColorFade(RGBA(56, 96, 178, 1), -20%)
+                ChevronHoverFill: =RGBA(0, 0, 0, 1)
+                Color: =RGBA(51, 51, 51, 1)
+                Default: ="Select the option"
+                Height: =56
+                HoverFill: =RGBA(0, 0, 0, 0)
+                Items: =["☑️ Checkbox","🔘 Multiple choice","— Paragraph"]
+                OnChange: |-
+                    =Clear(ColOption);
+                    Set(
+                        TotalLines,
+                        0
+                    );
+                    Set(
+                        TotalLines,
+                        TotalLines + 1
+                    );
+                    Collect(
+                        ColOption,
+                        {LineNumber: TotalLines}
+                    );
+                PressedColor: =RGBA(0, 0, 0, 1)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                Width: =364
+                X: =40
+                Y: =358
+                ZIndex: =4
+
+            RadioGroupCanvas2_1 As Radio.pcfdataset:
+                DisplayMode: =DisplayMode.Edit
+                FontSize: =0
+                Height: =46
+                Items: =["1"]
+                OnSelect: =
+                Visible: =If(OptionDD.SelectedText.Value = "Multiple choice 🔘",true,false)
+                Width: =320
+                X: =1493
+                Y: =207
+                ZIndex: =7
+
+            Icon2_1 As icon.Add:
+                Color: =RGBA(0, 0, 0, 1)
+                Height: =56
+                Icon: =Icon.Add
+                OnSelect: |
+                    =If(
+                        CountRows(ColOption) = 4,
+                        Notify("Only 4 option allowed"),
+                        Set(
+                            TotalLines,
+                            TotalLines + 1
+                        );
+                        Collect(
+                            ColOption,
+                            {LineNumber: TotalLines}
+                        )
+                    );
+                Width: =30
+                X: =478
+                Y: =358
+                ZIndex: =8
+
+            TextCanvas1 As Text:
+                Align: ='TextCanvas.Align'.Center
+                DisplayMode: =DisplayMode.Edit
+                Height: =32
+                Text: ="Add"
+                Weight: ='TextCanvas.Weight'.Semibold
+                Width: =63
+                X: =416
+                Y: =370
+                ZIndex: =9
+
+            "MultiplechoiceGal As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
+                DelayItemLoading: =true
+                Height: =Switch(CountRows(ColOption),1,82,2,165,3,247,4,327)
+                Items: =ColOption
+                Layout: =Layout.Vertical
+                LoadingSpinner: =LoadingSpinner.Data
+                ShowScrollbar: =false
+                TemplatePadding: =10
+                TemplateSize: =69
+                Visible: =If(OptionDD.SelectedText.Value = "🔘 Multiple choice" ,true,false)
+                Width: =613
+                X: =40
+                Y: =434
+                ZIndex: =10
+
+                Image6 As image:
+                    Height: =29
+                    Image: ='Group 306'
+                    OnSelect: =Select(Parent)
+                    Width: =24
+                    X: =16
+                    Y: =20
+                    ZIndex: =1
+
+                TextInput1 As text:
+                    BorderColor: =RGBA(122, 138, 143, 1)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =1
+                    Clear: =true
+                    Default: =""
+                    EnableSpellCheck: =true
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =67
+                    HintText: ="Option "&ThisItem.LineNumber
+                    HoverBorderColor: =RGBA(214, 221, 224, 1)
+                    HoverFill: =RGBA(255, 255, 255, 1)
+                    OnSelect: =Select(Parent)
+                    Width: =487
+                    X: =56
+                    Y: =1
+                    ZIndex: =2
+
+                Icon1 As icon.Cancel:
+                    Color: =RGBA(0, 0, 0, 1)
+                    Height: =31
+                    Icon: =Icon.Cancel
+                    OnSelect: |-
+                        =If(
+                            CountRows(ColOption) = 1,
+                            Notify(
+                                "Can't delete row",
+                                NotificationType.Information
+                            ),
+                            Remove(
+                                ColOption,
+                                ThisItem
+                            );
+                            Set(
+                                TotalLines,
+                                ThisItem.LineNumber - 1
+                            )
+                        )
+                    Visible: =If(CountRows(ColOption)=ThisItem.LineNumber,true,false)
+                    Width: =25
+                    X: =556
+                    Y: =20
+                    ZIndex: =3
+
+            "CheckboxGal As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
+                DelayItemLoading: =true
+                Height: =Switch(CountRows(ColOption),1,82,2,165,3,247,4,327)
+                Items: =ColOption
+                Layout: =Layout.Vertical
+                LoadingSpinner: =LoadingSpinner.Data
+                ShowScrollbar: =false
+                TemplatePadding: =10
+                TemplateSize: =69
+                Visible: =If(OptionDD.SelectedText.Value = "☑️ Checkbox" ,true,false)
+                Width: =613
+                X: =40
+                Y: =434
+                ZIndex: =11
+
+                Image6_1 As image:
+                    Height: =29
+                    Image: ='Group 302'
+                    OnSelect: =Select(Parent)
+                    Width: =24
+                    X: =16
+                    Y: =20
+                    ZIndex: =1
+
+                TextInput1_1 As text:
+                    BorderColor: =RGBA(122, 138, 143, 1)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =1
+                    Clear: =true
+                    Color: =RGBA(51, 51, 51, 1)
+                    Default: =
+                    EnableSpellCheck: =true
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Font: =Font.Arial
+                    Height: =67
+                    HintText: ="Option "&ThisItem.LineNumber
+                    HoverBorderColor: =RGBA(214, 221, 224, 1)
+                    HoverFill: =RGBA(255, 255, 255, 1)
+                    OnSelect: =Select(Parent)
+                    Width: =487
+                    X: =56
+                    Y: =1
+                    ZIndex: =2
+
+                Icon1_1 As icon.Cancel:
+                    Color: =RGBA(0, 0, 0, 1)
+                    Height: =31
+                    Icon: =Icon.Cancel
+                    OnSelect: |-
+                        =If(
+                            CountRows(ColOption) = 1,
+                            Notify(
+                                "Can't delete row",
+                                NotificationType.Information
+                            ),
+                            Remove(
+                                ColOption,
+                                ThisItem
+                            );
+                            Set(
+                                TotalLines,
+                                ThisItem.LineNumber - 1
+                            )
+                        )
+                    Visible: =If(CountRows(ColOption)=ThisItem.LineNumber,true,false)
+                    Width: =25
+                    X: =556
+                    Y: =20
+                    ZIndex: =3
+
+            TextInput2 As text:
+                Default: =""
+                Font: =Font.Arial
+                Height: =208
+                HintText: ="Enter your options"
+                Mode: =TextMode.MultiLine
+                Visible: =If(OptionDD.SelectedText.Value = "— Paragraph" ,true,false)
+                Width: =1032
+                X: =40
+                Y: =446
+                ZIndex: =12
+
+        LevelSelectionDataCard As dataCard.blankCard:
+            BorderColor: =RGBA(222, 232, 255, 1)
+            BorderStyle: =BorderStyle.Dashed
+            BorderThickness: =4
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =416
+            Width: =1918
+            X: =0
+            Y: =1
+            ZIndex: =2
+
+            Image1 As image:
+                Height: =83
+                Image: ='Group 430'
+                ImagePosition: =ImagePosition.Fill
+                Width: =80
+                X: =718
+                Y: =140
+                ZIndex: =1
+
+            Label5 As label:
+                Color: =RGBA(51, 51, 51, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Text: ="What Level this question?"
+                Width: =238
+                X: =40
+                Y: =40
+                ZIndex: =2
+
+            Beginnercon As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.Regular
+                Fill: =RGBA(222, 232, 255, 1)
+                Height: =66
+                RadiusBottomLeft: =6
+                RadiusBottomRight: =6
+                RadiusTopLeft: =6
+                RadiusTopRight: =6
+                Width: =276
+                X: =40
+                Y: =92
+                ZIndex: =3
+
+                BeginnerRadio As radio:
+                    BorderStyle: =BorderStyle.None
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Semibold
+                    Height: =63
+                    Items: =["Beginner"]
+                    OnChange: =Set(varRdoButton, BeginnerRadio.Selected.Value);
+                    OnSelect: |-
+                        =Switch(
+                            varRdoButton,
+                            BeginnerRadio.Selected.Value,
+                            Set(
+                                varRdoButton,
+                                Blank()
+                            ),
+                            Blank(),
+                            Set(
+                                varRdoButton,
+                                BeginnerRadio.Selected.Value
+                            );
+                            
+                        )
+                    RadioBorderColor: =RGBA(56, 96, 178, 1)
+                    RadioSelectionFill: =RGBA(51, 51, 51, 1)
+                    RadioSize: =30
+                    Reset: =If(varRdoButton = Blank(),true,false)
+                    Width: =270
+                    X: =6
+                    Y: =3
+                    ZIndex: =1
+
+            Intermediatecon As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.Regular
+                Fill: =RGBA(222, 232, 255, 1)
+                Height: =66
+                RadiusBottomLeft: =6
+                RadiusBottomRight: =6
+                RadiusTopLeft: =6
+                RadiusTopRight: =6
+                Width: =276
+                X: =40
+                Y: =188
+                ZIndex: =4
+
+                IntermediateRadio As radio:
+                    BorderStyle: =BorderStyle.None
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Semibold
+                    Height: =63
+                    Items: =["Intermediate"]
+                    OnChange: =Set(varIntermediate, IntermediateRadio.Selected.Value);
+                    OnSelect: |
+                        =Switch(
+                            varIntermediate,
+                            IntermediateRadio.Selected.Value,
+                            Set(
+                                varIntermediate,
+                                Blank()
+                            ),
+                            Blank(),
+                            Set(
+                                varIntermediate,
+                                IntermediateRadio.Selected.Value
+                            );
+                            
+                        );
+                    RadioBorderColor: =RGBA(56, 96, 178, 1)
+                    RadioSelectionFill: =RGBA(51, 51, 51, 1)
+                    RadioSize: =30
+                    Reset: =If(varIntermediate = Blank(),true,false)
+                    Width: =270
+                    X: =6
+                    Y: =3
+                    ZIndex: =1
+
+            Advancecon As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.Regular
+                Fill: =RGBA(222, 232, 255, 1)
+                Height: =66
+                RadiusBottomLeft: =6
+                RadiusBottomRight: =6
+                RadiusTopLeft: =6
+                RadiusTopRight: =6
+                Width: =276
+                X: =40
+                Y: =290
+                ZIndex: =5
+
+                AdvanceRadio As radio:
+                    BorderStyle: =BorderStyle.None
+                    Color: =RGBA(51, 51, 51, 1)
+                    Font: =Font.Arial
+                    FontWeight: =FontWeight.Semibold
+                    Height: =63
+                    Items: =["Advance"]
+                    OnChange: =Set(varAdvance, AdvanceRadio.Selected.Value);
+                    OnSelect: |-
+                        =Switch(
+                            varAdvance,
+                            AdvanceRadio.Selected.Value,
+                            Set(
+                                varAdvance,
+                                Blank()
+                            ),
+                            Blank(),
+                            Set(
+                                varAdvance,
+                                AdvanceRadio.Selected.Value
+                            );
+                            
+                        )
+                    RadioBorderColor: =RGBA(56, 96, 178, 1)
+                    RadioSelectionFill: =RGBA(51, 51, 51, 1)
+                    RadioSize: =30
+                    Reset: =If(varAdvance = Blank(),true,false)
+                    Width: =270
+                    X: =6
+                    Y: =3
+                    ZIndex: =1
+
+            Container8 As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(222, 232, 255, 1)
+                BorderStyle: =BorderStyle.Dashed
+                BorderThickness: =2
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =318
+                Width: =2
+                X: =488
+                Y: =52
+                ZIndex: =6
+
+            Slider2 As Slider:
+                BasePaletteColor: =
+                DisplayMode: =DisplayMode.Edit
+                Height: =35
+                Max: =10
+                Value: =1
+                Width: =200
+                X: =646
+                Y: =188
+                ZIndex: =7
+
+            Label12 As label:
+                Align: =Align.Center
+                Color: =RGBA(51, 51, 51, 1)
+                Font: =Font.Arial
+                Text: =Slider2.Value
+                Width: =50
+                X: =722
+                Y: =145
+                ZIndex: =8
+
+            Label5_1 As label:
+                Align: =Align.Center
+                Color: =RGBA(51, 51, 51, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Text: ="How much mark you would like to give ?"
+                Width: =279
+                X: =607
+                Y: =52
+                ZIndex: =9
+
+            Container8_1 As groupContainer.manualLayoutContainer:
+                BorderColor: =RGBA(222, 232, 255, 1)
+                BorderStyle: =BorderStyle.Dashed
+                BorderThickness: =2
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =318
+                Width: =2
+                X: =1076
+                Y: =52
+                ZIndex: =10
+
+            Label5_2 As label:
+                Align: =Align.Center
+                Color: =RGBA(51, 51, 51, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =54
+                Text: ="Provide the Reason Why you have selected the Question & Answer ?"
+                Width: =403
+                X: =1183
+                Y: =45
+                ZIndex: =11
+
+            TextInput3 As text:
+                BorderColor: =RGBA(122, 138, 143, 1)
+                BorderThickness: =1
+                Default: =""
+                Font: =Font.Arial
+                Height: =161
+                HintText: ="Any comments"
+                HoverBorderColor: =RGBA(214, 221, 224, 1)
+                HoverFill: =RGBA(255, 255, 255, 1)
+                Mode: =TextMode.MultiLine
+                PressedBorderColor: =
+                Width: =681
+                X: =1183
+                Y: =145
+                ZIndex: =12
+
+        TechnologySelectDataCard As dataCard.blankCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =477
+            Width: =1920
+            X: =0
+            Y: =2
+            ZIndex: =3
+
+            Label5_3 As label:
+                Color: =RGBA(51, 51, 51, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Text: ="Select the technology"
+                Width: =238
+                X: =40
+                Y: =40
+                ZIndex: =4
+
+            DropdownCanvas2 As Dropdown.pcfdataset:
+                DisplayMode: =DisplayMode.Edit
+                Height: =45
+                Items: =["SQL","Power Apps","Power BI","Java","Data Bricks"]
+                Required: =false
+                Width: =335
+                X: =40
+                Y: =131
+                ZIndex: =5
+
+                Value1 As pcfDataField.textualColumn:
+                    FieldDisplayName: ="Value"
+                    FieldName: ="Value"
+                    FieldType: ="s"
+                    FieldVariantName: ="textualColumn"
+                    Order: =1
+                    ZIndex: =13
+
+            Label5_4 As label:
+                Color: =RGBA(51, 51, 51, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Text: ="Select the Category"
+                Width: =238
+                X: =756
+                Y: =40
+                ZIndex: =6
+
+        DataCard4 As dataCard.blankCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =100
+            Width: =1920
+            X: =0
+            Y: =3
+            ZIndex: =4
+
+            Button1 As button:
+                Font: =Font.Arial
+                Size: =13
+                Text: ="Submit"
+                Width: =128
+                X: =806
+                Y: =30
+                ZIndex: =1
+
+            Checkbox1 As checkbox:
+                CheckboxSize: =30
+                Color: =RGBA(56, 96, 178, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =45
+                Text: ="Save as a Draft"
+                Width: =183
+                X: =997
+                Y: =27
+                ZIndex: =2
+

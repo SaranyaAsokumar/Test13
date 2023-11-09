@@ -1,0 +1,475 @@
+"'Question Screen' As screen":
+    OnVisible: |
+        =Clear(C_SkipQuestionRownumber);
+
+    QuestionContainer_QuestionScreen As groupContainer.manualLayoutContainer:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        Height: =1031
+        PaddingRight: =0.00
+        PaddingTop: =0.00
+        Visible: =V_QuestionContainerHide
+        Width: =1920.00
+        X: =0.00
+        ZIndex: =1
+
+        "QuestionGallery_QuestionScreen As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            DelayItemLoading: =true
+            Height: =610
+            Items: =Index(C_ExamQuestion,V_QuestionIncrement)
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =610
+            Width: =1872.21
+            X: =47
+            Y: =150
+            ZIndex: =1
+
+            OptionsRadio_QuestionScreen As radio:
+                Align: =Align.Justify
+                BorderColor: =RGBA(0, 0, 0, 0)
+                Default: =LookUp(C_ExamResult, question_id = ThisItem.question_id,response)
+                FontWeight: =FontWeight.Semibold
+                Height: =255
+                Items: =Filter(C_UspGetQuestion,question_id = ThisItem.question_id,options,options_id)
+                LineHeight: =1.5
+                OnChange: =Set(V_TryLaterCheckboxQuestionScreen,false)
+                OnSelect: |-
+                    =RemoveIf(C_ExamResult,question_id = ThisItem.question_id);
+                    RemoveIf(C_SkipQuestionRownumber,Rownumber =ThisItem.Rownumber);
+                    Collect(C_ExamResult,{question_id : ThisItem.question_id, response_id : OptionsRadio_QuestionScreen.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1Boptions_id', answer_id : ThisItem.answer_id, response :  OptionsRadio_QuestionScreen.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1Boptions', candidate_id : CandidateID});
+                    
+                    If(IsBlank(OptionsRadio_QuestionScreen.Selected),Set(V_NextQuestionButtonNameChange_QuestionScreen,"Skip >"),If(V_QuestionIncrement = CountRows(C_ExamQuestion) ,Set(V_NextQuestionButtonNameChange_QuestionScreen,"Finish >"),Set(V_NextQuestionButtonNameChange_QuestionScreen,"Next >")));
+                PaddingRight: =0.00
+                PaddingTop: =14.06
+                RadioBackgroundFill: =RGBA(175, 191, 224, 1)
+                RadioSelectionFill: =RGBA(39, 67, 125, 1)
+                Size: =18
+                Width: =1523.63
+                X: =188
+                Y: =173
+                ZIndex: =6
+
+            QuestionLabel_QuestionScreen As label:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(70, 70, 70, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(70, 70, 70, 1)
+                FontWeight: =FontWeight.Bold
+                Height: =154
+                HoverBorderColor: =
+                HoverColor: =RGBA(70, 70, 70, 1)
+                HoverFill: =
+                LineHeight: =1
+                PaddingRight: =7.03
+                PaddingTop: =7.03
+                Size: =28
+                Text: =  ThisItem.Rownumber&". "&ThisItem.questions
+                Width: =1619.21
+                X: =188
+                Y: =38
+                ZIndex: =7
+
+            NextQuestionButton_QuestionScreen As button:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                BorderThickness: =0
+                DisabledBorderColor: =RGBA(56, 96, 178, 1)
+                DisabledColor: =RGBA(255, 255, 255, 1)
+                DisabledFill: =RGBA(56, 96, 178, 1)
+                Font: =Font.Arial
+                Height: =56
+                HoverBorderColor: =RGBA(56, 96, 178, 1)
+                HoverFill: =RGBA(56, 96, 178, 1)
+                OnSelect: |
+                    =
+                    If(IsBlank(OptionsRadio_QuestionScreen),RemoveIf(C_SkipQuestionRownumber,Rownumber =ThisItem.Rownumber);
+                    Collect(C_SkipQuestionRownumber, {Rownumber : ThisItem.Rownumber, Question_id : ThisItem.question_id}));
+                    
+                    
+                    If(CountRows(C_ExamQuestion) > V_QuestionIncrement, Set(V_QuestionIncrement,V_QuestionIncrement+1);
+                    Set(V_PreviousQuestionButton_QuestionScreenHide,true);Set(V_NextQuestionButtonNameChange_QuestionScreen,"Next >"),
+                    Set(V_QuestionContainerHide,false);Set(V_GetResultContainerQuestionScreenHide,true));
+                    
+                    
+                    If(V_QuestionIncrement = CountRows(C_ExamQuestion) ,Set(V_NextQuestionButtonNameChange_QuestionScreen,"Finish >"),If(IsBlank(OptionsRadio_QuestionScreen),Set(V_NextQuestionButtonNameChange_QuestionScreen,"Try Later >")));
+                PaddingRight: =7.03
+                PaddingTop: =7.03
+                PressedBorderColor: =RGBA(56, 96, 178, 1)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(56, 96, 178, 1)
+                RadiusBottomLeft: =4
+                RadiusBottomRight: =4
+                RadiusTopLeft: =4
+                RadiusTopRight: =4
+                Size: =20
+                Text: |-
+                    =V_NextQuestionButtonNameChange_QuestionScreen
+                    //"Next >"
+                Width: =176
+                X: =945
+                Y: =514
+                ZIndex: =8
+
+            PreviousQuestionButton_QuestionScreen As button:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                BorderThickness: =0
+                Color: =RGBA(70, 70, 70, 1)
+                DisabledBorderColor: =RGBA(219, 219, 219, 1)
+                DisabledColor: =RGBA(70, 70, 70, 1)
+                DisabledFill: =RGBA(219, 219, 219, 1)
+                Fill: =RGBA(219, 219, 219, 1)
+                Font: =Font.Arial
+                Height: =56
+                HoverBorderColor: =RGBA(219, 219, 219, 1)
+                HoverColor: =RGBA(70, 70, 70, 1)
+                HoverFill: =RGBA(219, 219, 219, 1)
+                OnSelect: |-
+                    =
+                    
+                    If(CountRows(C_ExamQuestion) >= V_QuestionIncrement, Set(V_QuestionIncrement,V_QuestionIncrement-1);
+                    Set(V_NextQuestionButton_QuestionScreenHide,true));
+                    If(V_QuestionIncrement = 1 ,Set(V_PreviousQuestionButton_QuestionScreenHide,false));
+                    If(IsBlank(OptionsRadio_QuestionScreen.Selected),Set(V_NextQuestionButtonNameChange_QuestionScreen,"Try Later >"),Set(V_NextQuestionButtonNameChange_QuestionScreen,"Next >"))
+                PaddingRight: =7.03
+                PaddingTop: =7.03
+                PressedBorderColor: =RGBA(219, 219, 219, 1)
+                PressedColor: =RGBA(70, 70, 70, 1)
+                PressedFill: =RGBA(219, 219, 219, 1)
+                RadiusBottomLeft: =4
+                RadiusBottomRight: =4
+                RadiusTopLeft: =4
+                RadiusTopRight: =4
+                Size: =20
+                Text: ="< Previous  "
+                Visible: =V_PreviousQuestionButton_QuestionScreenHide
+                Width: =176
+                X: =696
+                Y: =514
+                ZIndex: =9
+
+            TryLaterCheckbox_QuestionScreen As checkbox:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                CheckboxBackgroundFill: =RGBA(0, 0, 0, 0)
+                CheckboxBorderColor: =RGBA(56, 96, 178, 1)
+                Color: =RGBA(56, 96, 178, 1)
+                Default: =If(ThisItem.Rownumber = LookUp(C_SkipQuestionRownumber,Rownumber = ThisItem.Rownumber,Rownumber),true)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(56, 96, 178, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                HoverBorderColor: =
+                HoverColor: =RGBA(56, 96, 178, 1)
+                HoverFill: =
+                OnCheck: |-
+                    =RemoveIf(C_SkipQuestionRownumber,Rownumber =ThisItem.Rownumber);
+                    Collect(C_SkipQuestionRownumber, {Rownumber : ThisItem.Rownumber, Question_id : ThisItem.question_id})
+                OnUncheck: |
+                    =RemoveIf(C_SkipQuestionRownumber,Rownumber =ThisItem.Rownumber);
+                PressedBorderColor: =
+                PressedColor: =RGBA(56, 96, 178, 1)
+                PressedFill: =
+                Text: ="Try Later"
+                Underline: =true
+                Visible: |-
+                    =//If(V_NextQuestionButtonNameChange_QuestionScreen = "Next >",true,If(V_NextQuestionButtonNameChange_QuestionScreen = "Finish >",true,false))
+                    true
+                X: =1166
+                Y: =514
+                ZIndex: =10
+
+        "TryLaterGallery_QuestionScreen As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0'":
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            DelayItemLoading: =true
+            Height: =146
+            Items: =Sort(C_SkipQuestionRownumber,Rownumber)
+            LoadingSpinner: =LoadingSpinner.Data
+            OnSelect: |-
+                =Set(V_QuestionIncrement,ThisItem.Rownumber);
+                If(V_QuestionIncrement = CountRows(C_ExamQuestion) ,Set(V_NextQuestionButtonNameChange_QuestionScreen,"Finish >"),If(IsBlank(OptionsRadio_QuestionScreen),Set(V_NextQuestionButtonNameChange_QuestionScreen,"Try Later >")));
+                If(ThisItem.Rownumber = 1, Set(V_PreviousQuestionButton_QuestionScreenHide,false));
+            TemplatePadding: =0
+            TemplateSize: =53
+            Width: =1496
+            WrapCount: =3
+            X: =235
+            Y: =787
+            ZIndex: =2
+
+            SkipRownumberButton_QuestionScreen_1 As button:
+                BorderColor: =RGBA(56, 96, 178, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                Fill: =RGBA(175, 191, 224, 1)
+                Font: =Font.Arial
+                Height: =35
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(255, 255, 255, 1)
+                OnSelect: |-
+                    =Set(V_QuestionIncrement,ThisItem.Rownumber);
+                    If(V_QuestionIncrement = CountRows(C_ExamQuestion) ,Set(V_NextQuestionButtonNameChange_QuestionScreen,"Finish >"),If(IsBlank(OptionsRadio_QuestionScreen),Set(V_NextQuestionButtonNameChange_QuestionScreen,"Try Later >")));
+                    If(ThisItem.Rownumber = 1, Set(V_PreviousQuestionButton_QuestionScreenHide,false), Set(V_PreviousQuestionButton_QuestionScreenHide,true));
+                PaddingRight: =7.03
+                PaddingTop: =7.03
+                RadiusBottomLeft: =90
+                RadiusBottomRight: =90
+                RadiusTopLeft: =90
+                RadiusTopRight: =90
+                Size: =12
+                Text: =ThisItem.Rownumber
+                Width: =35
+                X: =10
+                Y: =5
+                ZIndex: =1
+
+        PageHeadingLabelQuestionScreen As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =108
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            Size: =42
+            Text: ="Question"
+            Width: =292
+            X: =814
+            Y: =50
+            ZIndex: =3
+
+        QuaterCircle As partialCircle.quarterCircle:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Fill: |-
+                =If(ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 600000), Color.Red,
+                   If(ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 1200000), Color.Orange,
+                      If(ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 1800000), Color.Yellow,
+                         Color.Green)))
+            Height: =155
+            Visible: =If(QuaterCircle.Fill = Color.Red,true,false)
+            Width: =155
+            X: =1479
+            Y: =36
+            ZIndex: =4
+
+        HalfCircle As partialCircle:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Fill: |-
+                =If(ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 600000), Color.Red,
+                   If(ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 1200000), Color.Orange,
+                      If(ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 1800000), Color.Yellow,
+                         Color.Green)))
+            Height: =155
+            Visible: =If(HalfCircle.Fill = Color.Orange,true,false)
+            Width: =155
+            X: =1479
+            Y: =36
+            ZIndex: =5
+
+        ThreeQuaterCircle As partialCircle.threequarterCircle:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Fill: |-
+                =If(ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 600000), Color.Red,
+                   If(ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 1200000), Color.Orange,
+                      If(ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 1800000), Color.Yellow,
+                         Color.Green)))
+            Height: =155
+            OnSelect: =
+            Visible: =If(ThreeQuaterCircle.Fill = Color.Yellow,true,false)
+            Width: =155
+            X: =1479
+            Y: =36
+            ZIndex: =6
+
+        Circle As circle:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Fill: |-
+                =If(
+                    ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 600000),
+                    Color.Red,
+                    If(
+                        ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 1200000),
+                        Color.Orange,
+                        If(
+                            ExamTimer_QuestionScreen.Value >= (ExamTimer_QuestionScreen.Duration - 1800000),
+                            Color.Yellow,
+                            Color.Green
+                        )
+                    )
+                )
+            Height: =155
+            Visible: =If(Circle.Fill = Color.Green,true,false)
+            Width: =155
+            X: =1479
+            Y: =36
+            ZIndex: =7
+
+        ExamTimer_QuestionScreen As timer:
+            AutoPause: =false
+            AutoStart: =true
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =0
+            Color: =RGBA(26, 26, 26, 1)
+            DisplayMode: =DisplayMode.View
+            Duration: =2400000
+            Fill: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =135
+            HoverBorderColor: =
+            HoverColor: =RGBA(26, 26, 26, 1)
+            HoverFill: =
+            OnTimerEnd: =Select(YesButton_QuestionScreen);
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            PressedBorderColor: =
+            PressedColor: =RGBA(26, 26, 26, 1)
+            PressedFill: =
+            RadiusBottomLeft: =90
+            RadiusBottomRight: =90
+            RadiusTopLeft: =90
+            RadiusTopRight: =90
+            Size: =21.08
+            Start: =V_TimerStart
+            Text: |
+                = 
+                 Text(Time(0,0,(ExamTimer_QuestionScreen.Duration - ExamTimer_QuestionScreen.Value)/1000),"mm:ss")
+            Width: =135
+            X: =1489
+            Y: =46
+            ZIndex: =8
+
+    GetResultContainer_QuestionScreen As groupContainer.manualLayoutContainer:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        Fill: =RGBA(231, 239, 255, 1)
+        Height: =330
+        PaddingRight: =0.00
+        PaddingTop: =0.00
+        RadiusBottomLeft: =25
+        RadiusBottomRight: =25
+        RadiusTopLeft: =25
+        RadiusTopRight: =25
+        Visible: =V_GetResultContainerQuestionScreenHide
+        Width: =700
+        X: =610
+        Y: =375
+        ZIndex: =2
+
+        YesButton_QuestionScreen As button:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(70, 70, 70, 1)
+            DisabledBorderColor: =RGBA(219, 219, 219, 1)
+            DisabledColor: =RGBA(70, 70, 70, 1)
+            DisabledFill: =RGBA(219, 219, 219, 1)
+            Fill: =RGBA(219, 219, 219, 1)
+            Font: =Font.Arial
+            Height: =56
+            HoverBorderColor: =RGBA(219, 219, 219, 1)
+            HoverColor: =RGBA(70, 70, 70, 1)
+            HoverFill: =RGBA(219, 219, 219, 1)
+            OnSelect: |-
+                =Patch(
+                    'Exm.Exam',
+                    Defaults('Exm.Exam'),
+                    {
+                        candidate_id: CandidateID,
+                        exam_date: DateValue(
+                            Text(
+                                Today(),
+                                "dd/mm/yyyy"
+                            )
+                        ),
+                        start_time: varExmstarttime,
+                        end_time: Text(
+                            Now(),
+                            "hh:mm:ss"
+                        ),
+                        total_question_allocated: CountRows(C_ExamQuestion)
+                    }
+                );
+                If(
+                    CountRows(C_SkipQuestionRownumber) = 0,
+                    Navigate('Result Screen'),
+                    Notify(
+                        "Check your Draft Question",
+                        NotificationType.Information
+                    );
+                    Set(
+                        V_GetResultContainerQuestionScreenHide,
+                        false
+                    );
+                    Set(
+                        V_QuestionContainerHide,
+                        true
+                    )
+                )
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            PressedBorderColor: =RGBA(219, 219, 219, 1)
+            PressedColor: =RGBA(70, 70, 70, 1)
+            PressedFill: =RGBA(219, 219, 219, 1)
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =18
+            Text: ="Yes"
+            Width: =176
+            X: =389
+            Y: =213
+            ZIndex: =1
+
+        NoButton_QuetionScreen As button:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(56, 96, 178, 1)
+            DisabledColor: =RGBA(255, 255, 255, 1)
+            DisabledFill: =RGBA(56, 96, 178, 1)
+            Font: =Font.Arial
+            Height: =56
+            HoverBorderColor: =RGBA(56, 96, 178, 1)
+            HoverFill: =RGBA(56, 96, 178, 1)
+            OnSelect: |-
+                =
+                Set(V_GetResultContainerQuestionScreenHide,false);
+                Set(V_QuestionContainerHide,true);
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            PressedBorderColor: =RGBA(56, 96, 178, 1)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(56, 96, 178, 1)
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =18
+            Text: ="No"
+            Width: =176
+            X: =143
+            Y: =213
+            ZIndex: =2
+
+        ExamFinishingHeaderLabel As label:
+            Align: =Align.Center
+            Color: =RGBA(70, 70, 70, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =70
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            Size: =22
+            Text: ="Do you want to finish exam?"
+            Width: =699.97
+            X: =3
+            Y: =62
+            ZIndex: =3
+

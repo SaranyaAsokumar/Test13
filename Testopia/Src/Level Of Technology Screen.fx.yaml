@@ -1,0 +1,231 @@
+"'Level Of Technology Screen' As screen":
+
+    LevelOfTechnologyHeadingLabelLevelOfTechnology As label:
+        Align: =Align.Center
+        Font: =Font.Arial
+        FontWeight: =FontWeight.Bold
+        Height: =108
+        PaddingRight: =7.03
+        PaddingTop: =7.03
+        Size: =42.17
+        Text: ="Level Of Technology"
+        Width: =1920.00
+        X: =0.00
+        ZIndex: =2
+
+    GoButtonLevelOfTechnologyScreen As button:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =0
+        DisabledBorderColor: =RGBA(56, 96, 178, 1)
+        DisabledColor: =RGBA(255, 255, 255, 1)
+        DisabledFill: =RGBA(56, 96, 178, 1)
+        Font: =Font.Arial
+        Height: =56
+        HoverBorderColor: =RGBA(56, 96, 178, 1)
+        HoverFill: =RGBA(56, 96, 178, 1)
+        OnSelect: |
+            =If(
+                CountRows(C_Technology) = CountRows(C_LevelOfTechnology),
+                RemoveIf(
+                    'Stg.Staging_table',
+                    candidate_id = CandidateID
+                );
+                Patch(
+                    'Stg.Staging_table',
+                    ForAll(
+                        Sequence(CountRows(C_LevelOfTechnology)),
+                        Defaults('Stg.Staging_table')
+                    ),
+                    C_LevelOfTechnology
+                );
+                Refresh('Stg.Staging_table');
+                ClearCollect(
+                    C_UspGetQuestion,
+                    Uspgetquestionflow.Run(CandidateID)
+                );
+                ClearCollect(
+                    C_ExamQuestion,
+                    Sort(
+                        AddColumns(
+                            ForAll(
+                                Distinct(
+                                    ShowColumns(
+                                        C_UspGetQuestion,
+                                        "technology_id",
+                                        "technology",
+                                        "Level_of_quetions_id",
+                                        "level",
+                                        "level_id",
+                                        "question_id",
+                                        "questions",
+                                        "answer_id"
+                                    ),
+                                    ThisRecord
+                                ),
+                                Value
+                            ),
+                            "Random Columns",
+                            Rand()
+                        ),
+                        'Random Columns'
+                    )
+                );
+                ClearCollect(
+                    C_ExamQuestion,
+                    ForAll(
+                        Sequence(CountRows(C_ExamQuestion)),
+                        Patch(
+                            Last(
+                                FirstN(
+                                    C_ExamQuestion,
+                                    Value
+                                )
+                            ),
+                            {Rownumber: Value}
+                        )
+                    )
+                );
+                Set(
+                    V_QuestionIncrement,
+                    1
+                );
+                Set(
+                    V_PreviousQuestionButton_QuestionScreenHide,
+                    false
+                );
+                Set(
+                    V_NextQuestionButtonNameChange_QuestionScreen,
+                    "Try Later >"
+                );
+                Set(
+                    V_QuestionContainerHide,
+                    true
+                );
+                Navigate('Question Screen');
+                Set(
+                    V_TimerStart,
+                    true
+                );
+                ,
+                Notify("Select All The Level")
+            );
+            Set(
+                V_GetResultContainerQuestionScreenHide,
+                false
+            );
+            Set(
+                varExmstarttime,
+                Text(
+                    Now(),
+                    "hh:mm:ss"
+                )
+            );
+        PaddingRight: =7.03
+        PaddingTop: =7.03
+        PressedBorderColor: =RGBA(56, 96, 178, 1)
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(56, 96, 178, 1)
+        RadiusBottomLeft: =4
+        RadiusBottomRight: =4
+        RadiusTopLeft: =4
+        RadiusTopRight: =4
+        Size: =18
+        Text: ="Let's Go >"
+        Width: =176
+        X: =872
+        Y: =894
+        ZIndex: =3
+
+    "LevelOfTechnologyGalleryLevelOfTechnology As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        BorderColor: =RGBA(56, 96, 178, 1)
+        BorderThickness: =2
+        DelayItemLoading: =true
+        Height: =622
+        Items: =C_Technology
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: =
+        TemplatePadding: =0
+        TemplateSize: =206
+        Width: =1374.64
+        X: =273
+        Y: =188
+        ZIndex: =4
+
+        Separator_LevelOfTechnologyScreen As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =1374.64
+            X: =0.00
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        TechnologyLabel_LevelOfTechnologyScreen As label:
+            Align: =Align.Justify
+            Color: =RGBA(75, 75, 75, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =62
+            OnSelect: =Select(Parent)
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            Size: =28.11
+            Text: =ThisItem.technology
+            Width: =427.29
+            X: =106
+            Y: =81
+            ZIndex: =6
+
+        LevelOfTechnologyRadioLevelOfTechnologyScreen As radio:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: =RGBA(75, 75, 75, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =135
+            Items: ='Exm.Level_of_quetions'
+            LineHeight: =1
+            OnChange: |-
+                =//Remove(C_LevelOfTechnology,{Technology:ThisItem.technology,Technology_ID:ThisItem.technology_id,//Level_id:LevelOfTechnologyRadioLevelOfTechnologyScreen.Selected.Level_of_quetions_id,//Level:LevelOfTechnologyRadioLevelOfTechnologyScreen.Selected.level});
+            OnSelect: |
+                =RemoveIf(
+                    C_LevelOfTechnology,
+                    technology_id = ThisItem.technology_id
+                );
+                Collect(
+                    C_LevelOfTechnology,
+                    {
+                        technology: ThisItem.technology,
+                        technology_id: ThisItem.technology_id,
+                        level_id: LevelOfTechnologyRadioLevelOfTechnologyScreen.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1BLevel_of_quetions_id',
+                        level: LevelOfTechnologyRadioLevelOfTechnologyScreen.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1Blevel',
+                        exam_date: Text(
+                            Today(),
+                            "dd/mm/yyyy"
+                        ),
+                        candidate_id: CandidateID
+                    }
+                );
+            PaddingBottom: =5
+            PaddingRight: =0.00
+            PaddingTop: =7.03
+            PressedColor: =
+            RadioBorderColor: =RGBA(56, 96, 178, 1)
+            RadioSelectionFill: =RGBA(56, 96, 178, 1)
+            Size: =20
+            Width: =386.53
+            X: =860
+            Y: =36
+            ZIndex: =7
+
+        Icon3 As icon.ArrowRight:
+            Color: =RGBA(75, 75, 75, 1)
+            Height: =44
+            Icon: =Icon.ArrowRight
+            PaddingRight: =0.00
+            PaddingTop: =0.00
+            Width: =247.38
+            X: =568
+            Y: =81
+            ZIndex: =8
+

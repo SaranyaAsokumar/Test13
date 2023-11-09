@@ -1,0 +1,37 @@
+Screen1 As screen:
+    Fill: =RGBA(247,247,247,1)
+
+    Image17 As image:
+        Height: =90
+        Image: ='Group 370_1'
+        Width: =516
+        X: =656
+        Y: =320
+        ZIndex: =1
+
+    TextInput4 As text:
+        Default: =""
+        Fill: =RGBA(247, 247, 247, 1)
+        Height: =133
+        HintText: |-
+            ="                             
+                    Type Here......"
+        Width: =590
+        X: =619
+        Y: =479
+        ZIndex: =2
+
+    Button3 As button:
+        Font: =Font.Arial
+        Height: =53
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =17
+        Text: ="Done"
+        Width: =199
+        X: =834
+        Y: =702
+        ZIndex: =3
+

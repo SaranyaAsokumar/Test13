@@ -1,0 +1,899 @@
+"'Candidate Details Screen' As screen":
+    Fill: =RGBA(245, 248, 255, 1)
+
+    FullNameErrorMessageLabelCandidateDetailsscreen As label:
+        Align: =Align.Center
+        Color: =RGBA(232, 84, 84, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =13
+        OnSelect: =V_FullNameRequired
+        PaddingRight: =7.03
+        PaddingTop: =7.03
+        Size: =12
+        Text: =V_FullNameRequired
+        Width: =194
+        X: =863
+        Y: =393
+        ZIndex: =1
+
+    EmailErrorMessageLabelCandidateDetailsscreen As label:
+        Align: =Align.Center
+        Color: =RGBA(232, 84, 84, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =16
+        PaddingRight: =7.03
+        PaddingTop: =7.03
+        Size: =12
+        Text: =V_EmailRequired
+        Width: =175
+        X: =873
+        Y: =550
+        ZIndex: =2
+
+    PhoneNumberErrorMessageLabelCandidateDetailsscreen As label:
+        Align: =Align.Center
+        Color: =RGBA(232, 84, 84, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =14
+        PaddingRight: =7.03
+        PaddingTop: =7.03
+        Size: =12
+        Text: |
+            =If(IsBlank(PhoneNumberDataCardValueCandidateDetailsScreen),V_PhoneNumberRequired,If(Len(PhoneNumberDataCardValueCandidateDetailsScreen)<10,"Minimum 10 Digits"))
+        Width: =239
+        X: =841
+        Y: =714
+        ZIndex: =3
+
+    MakeSureDetailsContainer As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(231, 239, 255, 1)
+        Height: =533
+        PaddingRight: =0.00
+        PaddingTop: =0.00
+        RadiusBottomLeft: =25
+        RadiusBottomRight: =25
+        RadiusTopLeft: =25
+        RadiusTopRight: =25
+        Visible: =CandidateDetailSubmitConfirmationPopupMenuHide
+        Width: =910
+        X: =505
+        Y: =274
+        ZIndex: =4
+
+        ConfirmMessageLabelCandidateDetailsScreen As label:
+            Color: =RGBA(51, 51, 51, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =50
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            Size: =35
+            Text: ="Make sure your details are correct"
+            Width: =772
+            X: =69
+            Y: =50
+            ZIndex: =1
+
+        EditButtonCandidateDetailsScreen As button:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =RGBA(70, 70, 70, 1)
+            DisabledBorderColor: =RGBA(219, 219, 219, 1)
+            DisabledColor: =RGBA(70, 70, 70, 1)
+            DisabledFill: =RGBA(219, 219, 219, 1)
+            Fill: =RGBA(219, 219, 219, 1)
+            Font: =Font.Arial
+            Height: =56
+            HoverBorderColor: =RGBA(219, 219, 219, 1)
+            HoverColor: =RGBA(70, 70, 70, 1)
+            HoverFill: =RGBA(219, 219, 219, 1)
+            OnSelect: |-
+                =Set(CandidateDetailSubmitConfirmationPopupMenuHide,false);
+                Set(NextButtonHideCandidateDetailsScreen,true);
+                Set(CandidateDetailsFormHideCandidateDetailsScreen,true);
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            PressedBorderColor: =RGBA(219, 219, 219, 1)
+            PressedColor: =RGBA(70, 70, 70, 1)
+            PressedFill: =RGBA(219, 219, 219, 1)
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =18
+            Text: ="<    Edit"
+            Width: =176
+            X: =223
+            Y: =429
+            ZIndex: =2
+
+        ConfirmButtonCandidateDetailsScreen As button:
+            BorderColor: =RGBA(149, 149, 149, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(56, 96, 178, 1)
+            DisabledColor: =RGBA(255, 255, 255, 1)
+            DisabledFill: =RGBA(56, 96, 178, 1)
+            Font: =Font.Arial
+            Height: =56
+            HoverBorderColor: =RGBA(56, 96, 178, 1)
+            HoverFill: =RGBA(56, 96, 178, 1)
+            OnSelect: |
+                =//If(IsBlank(LookUp('Exm.Candidate',email_id = Text(EmailDataCardValueCandidateDetailsScreen),candidate_id)),
+                //SubmitForm(CandidateDetailsFormCandidateDetailsScreen);Navigate('Question Selection');Set(CandidateID,LookUp('Exm.Candidate',//email_id = V_CandidateEmailID,candidate_id)),
+                //Set(CandidateID,LookUp('Exm.Candidate',email_id = Text(EmailDataCardValueCandidateDetailsScreen),candidate_id));
+                //Navigate('Question Selection'));
+                //Set(TechnologyConfirmationPopUpMenuContainerHide,false);
+                //Set(TechnologySelectionContainerQuestionSelectionScreenHide,true);
+                //Refresh('Exm.Candidate');
+                Reset(OTPTextInput_CandidateDetailsScreen);
+                Set(
+                    V_OTP,
+                    Right(
+                        Rand(),
+                        5
+                    )
+                );
+                Gmail.SendEmail(
+                    EmailDataCardValueCandidateDetailsScreen.Text,
+                    {
+                        Subject: "Arus Exam OTP",
+                        Body: "Exam Verification OTP is " & V_OTP
+                    }
+                );
+                /*Office365Outlook.SendEmail(
+                    EmailDataCardValueCandidateDetailsScreen.Text,
+                    "Arus Exam OTP",
+                    "Exam Verification OTP is " & V_OTP
+                );*/
+                Set(
+                    CandidateDetailSubmitConfirmationPopupMenuHide,
+                    false
+                );
+                Set(
+                    V_EnterOTPcontainerHide,
+                    true
+                );
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            PressedBorderColor: =RGBA(56, 96, 178, 1)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(56, 96, 178, 1)
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =18
+            Text: ="Get OTP >"
+            Width: =176
+            X: =496
+            Y: =429
+            ZIndex: =3
+
+        MakeSureDetailsContainer_CandidateDetailsScreen As groupContainer.manualLayoutContainer:
+            BorderStyle: =BorderStyle.None
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =208
+            RadiusBottomLeft: =38
+            RadiusBottomRight: =38
+            RadiusTopLeft: =38
+            RadiusTopRight: =38
+            Width: =449
+            X: =223
+            Y: =163
+            ZIndex: =5
+
+            NameLabel As label:
+                Align: =Align.Center
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =30
+                Size: =18
+                Text: =FullNameDataCardValueCandidateDetailsScreen
+                Width: =449
+                Y: =30
+                ZIndex: =2
+
+            MailLabel As label:
+                Align: =Align.Center
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =30
+                Size: =18
+                Text: =EmailDataCardValueCandidateDetailsScreen
+                Width: =449
+                Y: =85
+                ZIndex: =3
+
+            PhoneNumberLabel As label:
+                Align: =Align.Center
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =30
+                Size: =18
+                Text: =PhoneNumberDataCardValueCandidateDetailsScreen
+                Width: =449
+                Y: =140
+                ZIndex: =4
+
+        ConfirmMessageLabelCandidateDetailsScreen_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(51, 51, 51, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =37
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            Size: =15
+            Text: ="If correct click Get OTP button"
+            Width: =772
+            X: =69
+            Y: =113
+            ZIndex: =6
+
+    CandidateDetailsEntryContainer As groupContainer.manualLayoutContainer:
+        Height: =1080
+        Visible: =CandidateDetailsFormHideCandidateDetailsScreen
+        Width: =1915
+        X: =4
+        ZIndex: =5
+
+        FemaleImage_CandidateDetailsScreen As image:
+            Height: =875
+            Image: ='OBJECTS (3)'
+            Width: =611
+            Y: =205
+            ZIndex: =1
+
+        CandidateDetailsContainer_CandidateDetailsScreen As groupContainer.manualLayoutContainer:
+            Fill: =RGBA(231, 239, 255, 1)
+            Height: =677
+            PaddingRight: =0.00
+            PaddingTop: =0.00
+            RadiusBottomLeft: =38
+            RadiusBottomRight: =38
+            RadiusTopLeft: =38
+            RadiusTopRight: =38
+            Width: =764
+            X: =611
+            Y: =205
+            ZIndex: =2
+
+            CandidateDetailsFormCandidateDetailsScreen As form:
+                DataSource: ='Exm.Candidate'
+                DefaultMode: =FormMode.New
+                Height: =560
+                NumberOfColumns: =1
+                Width: =764
+                Y: =76
+                ZIndex: =1
+
+                full_name_DataCard4 As typedDataCard.textualEditCard:
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="full_name"
+                    Default: =ThisItem.full_name
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Exm.Candidate'],DataSourceInfo.DisplayName,"full_name")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =160
+                    MaxLength: =DataSourceInfo([@'Exm.Candidate'], DataSourceInfo.MaxLength, "full_name")
+                    Required: =false
+                    Update: =FullNameDataCardValueCandidateDetailsScreen.Text
+                    Width: =764
+                    WidthFit: =false
+                    X: =0
+                    Y: =0
+                    ZIndex: =1
+
+                    DataCardKey8 As label:
+                        Color: =RGBA(75, 75, 75, 1)
+                        FontWeight: =FontWeight.Bold
+                        PaddingRight: =7.03
+                        PaddingTop: =7.03
+                        Size: =22
+                        Text: ="Full Name"
+                        Width: =183
+                        Wrap: =false
+                        X: =98
+                        Y: =7
+                        ZIndex: =1
+
+                    FullNameDataCardValueCandidateDetailsScreen As text:
+                        BorderColor: =RGBA(255, 255, 255, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Default: =
+                        DelayOutput: =true
+                        DisabledBorderColor: =RGBA(255, 255, 255, 1)
+                        DisabledColor: =RGBA(0, 0, 0, 1)
+                        DisabledFill: =RGBA(255, 255, 255, 1)
+                        DisplayMode: =Parent.DisplayMode
+                        Font: =Font.Arial
+                        Height: =64
+                        HintText: =" Enter your full name " 
+                        HoverBorderColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(255, 255, 255, 1)
+                        MaxLength: =Parent.MaxLength
+                        OnSelect: =
+                        PaddingLeft: =5
+                        PaddingRight: =7.03
+                        PaddingTop: =7.03
+                        PressedBorderColor: =RGBA(255, 255, 255, 1)
+                        PressedColor: =RGBA(0, 0, 0, 1)
+                        PressedFill: =RGBA(255, 255, 255, 1)
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =18
+                        Tooltip: =Parent.DisplayName
+                        Width: =515
+                        X: =150
+                        Y: =61
+                        ZIndex: =2
+
+                    Label8 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(245, 163, 81, 1)
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Bold
+                        Height: =20
+                        Size: =12
+                        Text: =V_FullNameRequired
+                        Width: =764
+                        Y: =128
+                        ZIndex: =5
+
+                    Label9_1 As label:
+                        BorderColor: =RGBA(255, 255, 255, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(255, 255, 255, 1)
+                        DisabledColor: =RGBA(255, 255, 255, 1)
+                        DisabledFill: =RGBA(255, 255, 255, 1)
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FocusedBorderColor: =RGBA(255, 255, 255, 1)
+                        Height: =64
+                        HoverBorderColor: =RGBA(255, 255, 255, 1)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(255, 255, 255, 1)
+                        Text: =""
+                        Width: =55
+                        X: =95
+                        Y: =61
+                        ZIndex: =6
+
+                    Image8 As image:
+                        Height: =36
+                        Image: ='icon-park-outline_edit-name'
+                        Width: =36
+                        X: =105
+                        Y: =75
+                        ZIndex: =7
+
+                email_id_DataCard2 As typedDataCard.textualEditCard:
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="email_id"
+                    Default: =ThisItem.email_id
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Exm.Candidate'],DataSourceInfo.DisplayName,"email_id")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =160
+                    MaxLength: =DataSourceInfo([@'Exm.Candidate'], DataSourceInfo.MaxLength, "email_id")
+                    Required: =false
+                    Update: =EmailDataCardValueCandidateDetailsScreen.Text
+                    Width: =764
+                    X: =0
+                    Y: =1
+                    ZIndex: =1
+
+                    DataCardKey7 As label:
+                        Color: =RGBA(75, 75, 75, 1)
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Bold
+                        PaddingRight: =7.03
+                        PaddingTop: =7.03
+                        Size: =22
+                        Text: ="Email"
+                        Width: =116
+                        Wrap: =false
+                        X: =98
+                        Y: =7
+                        ZIndex: =1
+
+                    EmailDataCardValueCandidateDetailsScreen As text:
+                        BorderColor: =RGBA(255, 255, 255, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Color: =RGBA(0, 18, 107, 1)
+                        Default: =Parent.Default
+                        DelayOutput: =true
+                        DisabledBorderColor: =RGBA(255, 255, 255, 1)
+                        DisabledColor: =RGBA(0, 0, 0, 1)
+                        DisabledFill: =RGBA(255, 255, 255, 1)
+                        DisplayMode: =Parent.DisplayMode
+                        Font: =Font.Arial
+                        Height: =64
+                        HintText: ="  Enter your Email id"
+                        HoverBorderColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(255, 255, 255, 1)
+                        MaxLength: =Parent.MaxLength
+                        OnSelect: =
+                        PaddingLeft: =5
+                        PaddingRight: =7.03
+                        PaddingTop: =7.03
+                        PressedBorderColor: =RGBA(255, 255, 255, 1)
+                        PressedColor: =RGBA(0, 0, 0, 1)
+                        PressedFill: =RGBA(255, 255, 255, 1)
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =18
+                        Tooltip: =Parent.DisplayName
+                        Width: =513
+                        X: =150
+                        Y: =61
+                        ZIndex: =2
+
+                    Label8_1 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(245, 163, 81, 1)
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Bold
+                        Height: =20
+                        Size: =12
+                        Text: =V_EmailRequired
+                        Width: =764
+                        Y: =128
+                        ZIndex: =4
+
+                    Label9 As label:
+                        BorderColor: =RGBA(255, 255, 255, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(255, 255, 255, 1)
+                        DisabledColor: =RGBA(255, 255, 255, 1)
+                        DisabledFill: =RGBA(255, 255, 255, 1)
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FocusedBorderColor: =RGBA(255, 255, 255, 1)
+                        Height: =64
+                        HoverBorderColor: =RGBA(255, 255, 255, 1)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(255, 255, 255, 1)
+                        Text: =""
+                        Width: =55
+                        X: =95
+                        Y: =61
+                        ZIndex: =5
+
+                    Image7 As image:
+                        Height: =36
+                        Image: ='ic_baseline-email'
+                        Width: =36
+                        X: =105
+                        Y: =75
+                        ZIndex: =6
+
+                phone_DataCard2 As typedDataCard.textualEditCard:
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="phone"
+                    Default: =ThisItem.phone
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Exm.Candidate'],DataSourceInfo.DisplayName,"phone")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =160
+                    MaxLength: =DataSourceInfo([@'Exm.Candidate'], DataSourceInfo.MaxLength, "phone")
+                    Required: =false
+                    Update: =PhoneNumberDataCardValueCandidateDetailsScreen.Text
+                    Width: =764
+                    X: =0
+                    Y: =2
+                    ZIndex: =1
+
+                    DataCardKey9 As label:
+                        Color: =RGBA(75, 75, 75, 1)
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Bold
+                        PaddingRight: =7.03
+                        PaddingTop: =7.03
+                        Size: =22
+                        Text: ="Phone Number"
+                        Width: =258
+                        Wrap: =false
+                        X: =98
+                        Y: =7
+                        ZIndex: =1
+
+                    PhoneNumberDataCardValueCandidateDetailsScreen As text:
+                        BorderColor: =RGBA(255, 255, 255, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Color: =RGBA(0, 18, 107, 1)
+                        Default: =Parent.Default
+                        DelayOutput: =true
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(0, 0, 0, 1)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        DisplayMode: =Parent.DisplayMode
+                        Font: =Font.Arial
+                        Height: =64
+                        HintText: =" Enter your Phone number"
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverFill: =RGBA(255, 255, 255, 1)
+                        MaxLength: =Parent.MaxLength
+                        OnSelect: =
+                        PaddingLeft: =5
+                        PaddingRight: =7.03
+                        PaddingTop: =7.03
+                        PressedBorderColor: =
+                        PressedColor: =RGBA(0, 0, 0, 1)
+                        PressedFill: =
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =18
+                        Tooltip: =Parent.DisplayName
+                        Width: =515
+                        X: =150
+                        Y: =61
+                        ZIndex: =2
+
+                    Label8_2 As label:
+                        Align: =Align.Center
+                        Color: =RGBA(245, 163, 81, 1)
+                        Font: =Font.Arial
+                        FontWeight: =FontWeight.Bold
+                        Height: =20
+                        Size: =12
+                        Text: =If(IsBlank(PhoneNumberDataCardValueCandidateDetailsScreen),V_PhoneNumberRequired,If(Len(PhoneNumberDataCardValueCandidateDetailsScreen.Text)<10,"minimum 10 number"))
+                        Width: =764
+                        Y: =128
+                        ZIndex: =4
+
+                    Label9_2 As label:
+                        BorderColor: =RGBA(255, 255, 255, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(255, 255, 255, 1)
+                        DisabledColor: =RGBA(255, 255, 255, 1)
+                        DisabledFill: =RGBA(255, 255, 255, 1)
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FocusedBorderColor: =RGBA(255, 255, 255, 1)
+                        Height: =64
+                        HoverBorderColor: =RGBA(255, 255, 255, 1)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(255, 255, 255, 1)
+                        Text: =""
+                        Width: =55
+                        X: =95
+                        Y: =61
+                        ZIndex: =5
+
+                    Image4 As image:
+                        Height: =36
+                        Image: ='material-symbols_phone-in-talk'
+                        Width: =36
+                        X: =105
+                        Y: =75
+                        ZIndex: =6
+
+            NextButtonCandidateDetailsScreen As button:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderStyle: =BorderStyle.None
+                BorderThickness: =0
+                Font: =Font.Arial
+                Height: =56
+                HoverBorderColor: =RGBA(56, 96, 178, 1)
+                HoverFill: =RGBA(56, 96, 178, 1)
+                OnSelect: |
+                    =Collect(
+                        CandidateDetails,
+                        {
+                            FullName: FullNameDataCardValueCandidateDetailsScreen.Text,
+                            Email: EmailDataCardValueCandidateDetailsScreen.Text,
+                            PhoneNumber: PhoneNumberDataCardValueCandidateDetailsScreen.Text
+                        }
+                    );
+                    If(
+                        IsBlank(FullNameDataCardValueCandidateDetailsScreen),
+                        Set(
+                            V_FullNameRequired,
+                            "Full Name is Required"
+                        );
+                        Set(
+                            V_EmailRequired,
+                            ""
+                        );
+                        Set(
+                            V_PhoneNumberRequired,
+                            ""
+                        );
+                        ,
+                        If(
+                            IsBlank(EmailDataCardValueCandidateDetailsScreen),
+                            Set(
+                                V_EmailRequired,
+                                "Email is Required"
+                            );
+                            Set(
+                                V_FullNameRequired,
+                                ""
+                            );
+                            Set(
+                                V_PhoneNumberRequired,
+                                ""
+                            );
+                            ,
+                            If(
+                                IsBlank(PhoneNumberDataCardValueCandidateDetailsScreen),
+                                Set(
+                                    V_PhoneNumberRequired,
+                                    "Phone Number is Required"
+                                );
+                                Set(
+                                    V_EmailRequired,
+                                    ""
+                                );
+                                Set(
+                                    V_FullNameRequired,
+                                    ""
+                                ),
+                                Set(
+                                    V_EmailRequired,
+                                    ""
+                                );
+                                Set(
+                                    V_FullNameRequired,
+                                    ""
+                                );
+                                Set(
+                                    CandidateDetailSubmitConfirmationPopupMenuHide,
+                                    true
+                                );
+                                Set(
+                                    NextButtonHideCandidateDetailsScreen,
+                                    false
+                                );
+                                Set(
+                                    CandidateDetailsFormHideCandidateDetailsScreen,
+                                    false
+                                );
+                                Set(
+                                    V_CandidateEmailID,
+                                    EmailDataCardValueCandidateDetailsScreen.Text
+                                )
+                            )
+                        )
+                    );
+                PaddingRight: =7.03
+                PaddingTop: =7.03
+                PressedBorderColor: =RGBA(56, 96, 178, 1)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(56, 96, 178, 1)
+                RadiusBottomLeft: =4
+                RadiusBottomRight: =4
+                RadiusTopLeft: =4
+                RadiusTopRight: =4
+                Size: =18
+                Text: ="Next   >"
+                Visible: =NextButtonHideCandidateDetailsScreen
+                Width: =176
+                X: =294
+                Y: =592
+                ZIndex: =2
+
+        MaleImage_CandidateDetailsScreen As image:
+            Height: =875
+            Image: =Character
+            Width: =540
+            X: =1375
+            Y: =205
+            ZIndex: =3
+
+        RegisterationFromLabel As label:
+            Color: =RGBA(51, 51, 51, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =123
+            Size: =48
+            Text: ="REGISTRATION FORM"
+            Width: =682
+            X: =652
+            ZIndex: =4
+
+    GetOTPContainer As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(231, 239, 255, 1)
+        Height: =533
+        PaddingRight: =0.00
+        PaddingTop: =0.00
+        RadiusBottomLeft: =25
+        RadiusBottomRight: =25
+        RadiusTopLeft: =25
+        RadiusTopRight: =25
+        Visible: |-
+            =//CandidateDetailSubmitConfirmationPopupMenuHide
+            V_EnterOTPcontainerHide
+        Width: =910
+        X: =505
+        Y: =274
+        ZIndex: =6
+
+        EnterOTPMessageLabelCandidateDetailsScreen As label:
+            Align: =Align.Center
+            Color: =RGBA(51, 51, 51, 1)
+            Font: =Font.Arial
+            FontWeight: =FontWeight.Bold
+            Height: =50
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            Size: =35
+            Text: ="Enter your OTP"
+            Width: =772
+            X: =69
+            Y: =70
+            ZIndex: =1
+
+        EditButtonCandidateDetailsScreen_1 As button:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(56, 96, 178, 1)
+            DisabledColor: =RGBA(255, 255, 255, 1)
+            DisabledFill: =RGBA(56, 96, 178, 1)
+            Font: =Font.Arial
+            Height: =56
+            HoverBorderColor: =RGBA(56, 96, 178, 1)
+            HoverFill: =RGBA(56, 96, 178, 1)
+            OnSelect: |-
+                =//Set(CandidateDetailSubmitConfirmationPopupMenuHide,false);
+                //Set(NextButtonHideCandidateDetailsScreen,true);
+                //Set(CandidateDetailsFormHideCandidateDetailsScreen,true);
+                
+                Set(CandidateDetailSubmitConfirmationPopupMenuHide,true);
+                Set(V_EnterOTPcontainerHide,false);
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            PressedBorderColor: =RGBA(56, 96, 178, 1)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(56, 96, 178, 1)
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =18
+            Text: ="<  Back"
+            Width: =176
+            X: =223
+            Y: =429
+            ZIndex: =2
+
+        ConfirmButtonCandidateDetailsScreen_1 As button:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(56, 96, 178, 1)
+            DisabledColor: =RGBA(255, 255, 255, 1)
+            DisabledFill: =RGBA(56, 96, 178, 1)
+            Font: =Font.Arial
+            Height: =56
+            HoverBorderColor: =RGBA(56, 96, 178, 1)
+            HoverFill: =RGBA(56, 96, 178, 1)
+            OnSelect: |
+                =If(
+                    V_OTP = OTPTextInput_CandidateDetailsScreen.Text,
+                    If(
+                        IsBlank(
+                            LookUp(
+                                'Exm.Candidate',
+                                email_id = Text(EmailDataCardValueCandidateDetailsScreen),
+                                candidate_id
+                            )
+                        ),
+                        SubmitForm(CandidateDetailsFormCandidateDetailsScreen);
+                        Navigate('Question Selection');
+                        Set(
+                            CandidateID,
+                            LookUp(
+                                'Exm.Candidate',
+                                email_id = V_CandidateEmailID,
+                                candidate_id
+                            )
+                        ),
+                        Set(
+                            CandidateID,
+                            LookUp(
+                                'Exm.Candidate',
+                                email_id = Text(EmailDataCardValueCandidateDetailsScreen),
+                                candidate_id
+                            )
+                        );
+                        Navigate('Question Selection')
+                    );
+                    Set(
+                        TechnologyConfirmationPopUpMenuContainerHide,
+                        false
+                    );
+                    Set(
+                        TechnologySelectionContainerQuestionSelectionScreenHide,
+                        true
+                    );
+                    Refresh('Exm.Candidate'),
+                    Set(
+                        V_OTPverificationMessage,
+                        "OTP not matched"
+                    )
+                );
+            PaddingRight: =7.03
+            PaddingTop: =7.03
+            PressedBorderColor: =RGBA(56, 96, 178, 1)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(56, 96, 178, 1)
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =18
+            Text: ="Confirm >"
+            Width: =176
+            X: =481
+            Y: =429
+            ZIndex: =3
+
+        MakeSureDetailsContainer_CandidateDetailsScreen_1 As groupContainer.manualLayoutContainer:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderStyle: =BorderStyle.None
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =208
+            RadiusBottomLeft: =30
+            RadiusBottomRight: =30
+            RadiusTopLeft: =30
+            RadiusTopRight: =30
+            Width: =449
+            X: =223
+            Y: =163
+            ZIndex: =5
+
+            OTP_InformationLabel As label:
+                Align: =Align.Center
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =50
+                Size: =14
+                Text: ="OTP have send to your Gmail account "
+                Width: =449
+                Y: =32
+                ZIndex: =4
+
+            OTPTextInput_CandidateDetailsScreen As text:
+                Align: =Align.Center
+                BorderColor: =RGBA(51, 51, 51, 1)
+                Default: =
+                DisabledBorderColor: =RGBA(51, 51, 51, 1)
+                DisabledColor: =RGBA(0, 0, 0, 1)
+                DisabledFill: =RGBA(255, 255, 255, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Bold
+                Height: =45
+                HoverBorderColor: =RGBA(51, 51, 51, 1)
+                HoverFill: =RGBA(255, 255, 255, 1)
+                OnSelect: =Set(V_OTPverificationMessage,"")
+                PressedBorderColor: =RGBA(51, 51, 51, 1)
+                PressedColor: =RGBA(0, 0, 0, 1)
+                PressedFill: =RGBA(255, 255, 255, 1)
+                Size: =12
+                Tooltip: =V_OTPverificationMessage
+                Width: =200
+                X: =125
+                Y: =99
+                ZIndex: =5
+
+            Label6 As label:
+                Color: =RGBA(250, 155, 112, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                Height: =25
+                Size: =12
+                Text: =V_OTPverificationMessage
+                X: =150
+                Y: =157
+                ZIndex: =6
+
